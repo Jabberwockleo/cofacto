@@ -28,7 +28,7 @@ import rec_eval
 
 DATA_DIR = '../data/'
 DATA_SET_NAME = 'UIDSID'
-FN_UID_SIDS = 'sample_uid_sids.txt'
+FN_UID_SIDS = 'uid_sids.txt'
 IS_ILLUSTRATED = False
 N_JOBS = 30
 K_NS = 1
@@ -114,12 +114,11 @@ def make_sppmi_matrix(comat, k_ns=1):
     M_ns.data[M_ns.data < 0] = 0
     M_ns.eliminate_zeros()
     # illustrate
-    fig = plt.figure()
-    plt.hist(M_ns.data, bins=50)
-    plt.yscale('log')
     if IS_ILLUSTRATED:
+        fig = plt.figure()
+        plt.hist(M_ns.data, bins=50)
+        plt.yscale('log')
         fig.show()
-    else:
         fig.savefig('co_ocur_hist.png')
     print('SPPMI matrix M_ns sparcity:{}'.format(float(M_ns.nnz) / np.prod(M_ns.shape)))
     return M_ns
@@ -131,7 +130,7 @@ def preprocess():
     '''
     fn_train, fn_dev, fn_test = util.make_train_dev_test_files(idx2uid, uid2idx, idx2sid, sid2idx, uid_sids_dict, data_dir=DATA_DIR)
     print(fn_train, fn_dev, fn_test)
-    
+
     n_users = len(uid2idx)
     print('n_users:{}'.format(n_users))
     n_items = len(sid2idx)
@@ -144,22 +143,20 @@ def preprocess():
     user_activity = np.asarray(train_data.sum(axis=1)).ravel()
     print("The mean (median) items each user wathced is %d (%d)" % (user_activity.mean(), np.median(user_activity)))
     # illustrate user->item count stat
-    fig = plt.figure()
-    plt.semilogx(1 + np.arange(n_users), -np.sort(-user_activity), 'o')
-    plt.ylabel('Number of items that this user clicked on')
-    plt.xlabel('User rank by number of consumed items')
     if IS_ILLUSTRATED:
+        fig = plt.figure()
+        plt.semilogx(1 + np.arange(n_users), -np.sort(-user_activity), 'o')
+        plt.ylabel('Number of items that this user clicked on')
+        plt.xlabel('User rank by number of consumed items')
         plt.show()
-    else:
         fig.savefig('user_rank.png')
     # illustrate item->user count stat
-    fig = plt.figure()
-    plt.semilogx(1 + np.arange(n_items), -np.sort(-watches_per_item), 'o')
-    plt.ylabel('Number of users who watched this item')
-    plt.xlabel('Item rank by number of watches')
     if IS_ILLUSTRATED:
+        fig = plt.figure()
+        plt.semilogx(1 + np.arange(n_items), -np.sort(-watches_per_item), 'o')
+        plt.ylabel('Number of users who watched this item')
+        plt.xlabel('Item rank by number of watches')
         plt.show()
-    else:
         fig.savefig('item_rank.png')
     ## Generate co-occurrence matrix based on the user's entire watching history
     batch_size = 5000

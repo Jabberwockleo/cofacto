@@ -21,7 +21,7 @@ import cofacto_util as util
 DATA_DIR = '../data/'
 N_COMPONENTS = 100
 DATA_SET_NAME = 'UIDSID'
-FN_UID_SIDS = 'sample_uid_sids.txt'
+FN_UID_SIDS = 'uid_sids.txt'
 
 idx2uid, uid2idx, idx2sid, sid2idx = util.make_index(os.path.join(DATA_DIR, FN_UID_SIDS))
 uid_sids_dict = util.make_uid_sids_dict(os.path.join(DATA_DIR, FN_UID_SIDS))

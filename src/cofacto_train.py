@@ -28,7 +28,7 @@ import rec_eval
 DATA_DIR = '../data/'
 N_COMPONENTS = 100
 DATA_SET_NAME = 'UIDSID'
-FN_UID_SIDS = 'sample_uid_sids.txt'
+FN_UID_SIDS = 'uid_sids.txt'
 
 N_COMPONENTS = 100
 N_JOBS = 30
